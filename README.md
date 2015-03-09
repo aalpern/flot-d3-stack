@@ -15,3 +15,7 @@ series: {
     }
 }
 ```
+
+### Example
+
+![](example/example.png)
