@@ -8,7 +8,7 @@ to provide [stream graphs](http://www.leebyron.com/else/streamgraph/).
 
 There's a single option to enable stream graphs on a series:
 
-```json
+```javascript
 series: {
     streamgraph: true
 }
