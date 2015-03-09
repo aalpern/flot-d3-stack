@@ -1,7 +1,9 @@
 (function ($) {
   var options = {
       series: {
-        streamgraph: false
+        streamgraph: {
+          show: false
+        }
       }
   }
 
@@ -14,7 +16,7 @@
     var stacked = null
 
     function processRawData(plot, series) {
-      if (!series.streamgraph)
+      if (!series.streamgraph || (series.streamgraph && !series.streamgraph.show))
         return
       if (!stacked) {
         stacked = stack(plot.getData())
@@ -22,7 +24,7 @@
     }
 
     function streamData(plot, series, datapoints) {
-      if (!series.streamgraph)
+      if (!series.streamgraph || (series.streamgraph && !series.streamgraph.show))
         return
       var newpoints = []
       series.data.forEach(function(point) {

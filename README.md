@@ -10,6 +10,8 @@ There's a single option to enable stream graphs on a series:
 
 ```json
 series: {
-    streamgraph: true
+    streamgraph: {
+        show: true
+    }
 }
 ```

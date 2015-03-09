@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.min.js"></script>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.stack.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../jquery.flot.d3.streamgraph.js"></script>
+    <style>
+     body {
+       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+     }
+     h1 {
+       border-bottom: 1px solid lightgray;
+     }
+    </style>
+  </head>
+  <body>
+    <h1>Flot Streamgraph Example</h1>
+
+    <h2>Stream Graph</h2>
+	<div id="stream" style="width:800px;height:200px;"></div>
+
+    <h2>Regular Stack</h2>
+	<div id="stack" style="width:800px;height:200px;"></div>
+
+    <script>
+     function random() {
+       var length = 100
+       var points = []
+       for (var i = 0; i < length; i++) {
+         points.push([i, Math.random()])
+       }
+       return points
+     }
+     var labels = [ "Frobs", "Globs", "Thingamajigs", "Doohickeys", "Framistats" ]
+     var data = labels.map(function(label) {
+       return {
+         label: label,
+         data: random()
+       }
+     })
+     console.log(data)
+
+	 var options = {
+       colors: ["#e7cbe6", "#d8aad6", "#a888c2", "#9dc2d3", "#649eb9", "#387aa3"].reverse(),
+       grid: {
+         show: false,
+         borderWidth: 1,
+         hoverable: true,
+         autoHighlight: true,
+         color: 'lightgray',
+         borderColor: 'lightgray'
+       },
+       shadowSize: 0,
+       legend: { show: false },
+       series: {
+		 streamgraph: {
+           show: true
+         },
+         lines: {
+		   show: true,
+           fill: 1,
+           lineWidth: 1
+		 }
+       }
+     }
+
+	 $.plot($("#stream"), data, options);
+
+     options.series.streamgraph.show = false
+     options.series.stack = true
+
+	 $.plot($("#stack"), data, options);
+
+    </script>
+
+  </body>
+</html>
