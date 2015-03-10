@@ -9,7 +9,6 @@
 
   function init(plot) {
     var stack = d3.layout.stack()
-                  .offset('wiggle')
                   .values(function(series) { return series.data } )
                   .x(function(d) { return d[0] })
                   .y(function(d) { return d[1] })
@@ -19,6 +18,7 @@
       if (!series.streamgraph || (series.streamgraph && !series.streamgraph.show))
         return
       if (!stacked) {
+        stack.offset(series.streamgraph.offset || 'wiggle')
         stacked = stack(plot.getData())
       }
     }

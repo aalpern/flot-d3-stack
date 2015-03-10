@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
   <head>
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -9,48 +10,87 @@
     <style>
      body {
        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       font-size: 14px;
      }
      h1 {
        border-bottom: 1px solid lightgray;
      }
+     .row {
+       width: 100%;
+       float: left;
+     }
+     .cell {
+       width: 50%;
+       float: left;
+     }
+     .example {
+       height: 200px;
+     }
     </style>
   </head>
+
   <body>
     <h1>Flot Streamgraph Example</h1>
 
-    <h2>Stream Graph</h2>
-	<div id="stream" style="width:800px;height:200px;"></div>
-
-    <h2>Regular Stack</h2>
-	<div id="stack" style="width:800px;height:200px;"></div>
+    <div class="row">
+      <div class="cell">
+        <h2>Stream Graph</h2>
+	    <div id="wiggle" class="example"></div>
+      </div>
+      <div class="cell">
+        <h2>Stream Graph (alternate)</h2>
+	    <div id="silhouette" class="example"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <h2>Percentage (Expanded)</h2>
+	    <div id="expand" class="example"></div>
+      </div>
+      <div class="cell">
+        <h2>Regular Stack</h2>
+	    <div id="zero" class="example"></div>
+      </div>
+    </div>
 
     <script>
-     function random() {
-       var length = 100
+     function random(gen) {
        var points = []
-       for (var i = 0; i < length; i++) {
-         points.push([i, Math.random()])
+       for (var i = 0; i < 100; i++) {
+         points.push([i, gen()])
        }
        return points
      }
+
      var labels = [ "Frobs", "Globs", "Thingamajigs", "Doohickeys", "Framistats" ]
      var data = labels.map(function(label) {
        return {
          label: label,
-         data: random()
+         data: random(d3.random.irwinHall(2))
        }
      })
-     console.log(data)
 
 	 var options = {
-       colors: ["#e7cbe6", "#d8aad6", "#a888c2", "#9dc2d3", "#649eb9", "#387aa3"].reverse(),
+       colors: ["#e7cbe6", "#d8aad6", "#a888c2", "#9dc2d3", "#649eb9", "#387aa3"],
        grid: {
-         show: false,
+         show: true,
          borderWidth: 1,
-         hoverable: true,
-         autoHighlight: true,
          color: 'lightgray',
-         borderColor: 'lightgray'
+         borderColor: 'lightgray',
+         tickColor: 'lightgray',
+       },
+       xaxis: {
+         font: {
+           color: 'gray',
+           size: 11
+         }
+       },
+       yaxis: {
+         font: {
+           color: 'gray',
+           size: 11
+         },
+         tickFormatter: d3.format(',.3s')
        },
        shadowSize: 0,
        legend: { show: false },
@@ -66,12 +106,13 @@
        }
      }
 
-	 $.plot($("#stream"), data, options);
-
-     options.series.streamgraph.show = false
-     options.series.stack = true
-
-	 $.plot($("#stack"), data, options);
+     var offsets = [ "wiggle", "silhouette", "expand", "zero" ]
+     offsets.forEach(function(offset) {
+       options.series.streamgraph.offset = offset
+       options.yaxis.min = (offset === 'expand') ? 0 : undefined
+       options.yaxis.max = (offset === 'expand') ? 1 : undefined
+	   $.plot($('#' + offset), data, options)
+     })
 
     </script>
 
