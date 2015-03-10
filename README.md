@@ -20,3 +20,5 @@ series: {
 ### Example
 
 ![](example/example.png)
+
+* flot-d3-stack is also in use in [Tessera](https://github.com/urbanairship/tessera).
