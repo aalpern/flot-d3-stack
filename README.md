@@ -1,4 +1,4 @@
-# Stream Graph Plugin for Flot
+# d3 Stacking Plugin for Flot
 
 A plugin for Flot which utilizes
 [d3's stack layout](https://github.com/mbostock/d3/wiki/Stack-Layout)
@@ -10,8 +10,9 @@ There's a single option to enable stream graphs on a series:
 
 ```javascript
 series: {
-    streamgraph: {
-        show: true
+    stackD3: {
+        show: true,
+        mode: 'wiggle' /* or 'silhouette', 'expand', or 'zero' */
     }
 }
 ```

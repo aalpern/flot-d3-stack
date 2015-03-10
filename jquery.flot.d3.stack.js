@@ -1,7 +1,7 @@
 (function ($) {
   var options = {
       series: {
-        streamgraph: {
+        stackD3: {
           show: false
         }
       }
@@ -15,16 +15,16 @@
     var stacked = null
 
     function processRawData(plot, series) {
-      if (!series.streamgraph || (series.streamgraph && !series.streamgraph.show))
+      if (!series.stackD3 || (series.stackD3 && !series.stackD3.show))
         return
       if (!stacked) {
-        stack.offset(series.streamgraph.offset || 'wiggle')
+        stack.offset(series.stackD3.offset || 'wiggle')
         stacked = stack(plot.getData())
       }
     }
 
     function streamData(plot, series, datapoints) {
-      if (!series.streamgraph || (series.streamgraph && !series.streamgraph.show))
+      if (!series.stackD3 || (series.stackD3 && !series.stackD3.show))
         return
       var newpoints = []
       series.data.forEach(function(point) {
@@ -42,7 +42,7 @@
   $.plot.plugins.push({
     init: init,
     options: options,
-    name: 'streamgraph',
+    name: 'stackD3',
     version: '1.0'
   })
 
