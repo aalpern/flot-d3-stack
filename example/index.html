@@ -30,7 +30,7 @@
   </head>
 
   <body>
-    <h1>Flot Streamgraph Example</h1>
+    <h1>Flot StackD3 Example</h1>
 
     <div class="row">
       <div class="cell">
@@ -108,7 +108,7 @@
 
      var offsets = [ "wiggle", "silhouette", "expand", "zero" ]
      offsets.forEach(function(offset) {
-       options.series.streamgraph.offset = offset
+       options.series.stackD3.offset = offset
        options.yaxis.min = (offset === 'expand') ? 0 : undefined
        options.yaxis.max = (offset === 'expand') ? 1 : undefined
 	   $.plot($('#' + offset), data, options)
