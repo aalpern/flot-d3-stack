@@ -27,11 +27,15 @@
       if (!series.stackD3 || (series.stackD3 && !series.stackD3.show))
         return
       var newpoints = []
+      var percents = []
       series.data.forEach(function(point) {
         newpoints.push(point[0])
         newpoints.push(point.y0 + point[1])
         newpoints.push(point.y0)
+        percents.push(point.y)
       })
+      if (series.stackD3.offset === 'expand')
+        series.percents = percents
       datapoints.points = newpoints
     }
 
