@@ -23,7 +23,6 @@ This package is [available on npm](https://www.npmjs.com/package/flot-d3-stack) 
 
 ```
 npm install flot-d3-stack
-
 ```
 
 ### Example
