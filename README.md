@@ -17,6 +17,15 @@ series: {
 }
 ```
 
+### Installation via `npm`
+
+This package is [available on npm](https://www.npmjs.com/package/flot-d3-stack) as `flot-d3-stack`. To install from npm:
+
+```
+npm install flot-d3-stack
+
+```
+
 ### Example
 
 ![](example/example.png)
