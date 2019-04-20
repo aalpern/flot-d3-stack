@@ -1,6 +1,6 @@
 {
   "name": "flot-d3-stack",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A plugin for Flot which utilizes d3 layouts to provide stream graphs",
   "main": "jquery.flot.d3.stack.js",
   "directories": {
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/aalpern/flot-d3-stack",
   "dependencies": {
     "d3": "^3.5.5",
-    "jquery": "^2.1.4"
+    "flot": "^0.8.3",
+    "jquery": "^3.4.0"
   }
 }
