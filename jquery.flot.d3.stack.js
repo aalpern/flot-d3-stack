@@ -84,8 +84,6 @@
       if (!options.series.stackD3 || (options.series.stackD3 && !options.series.stackD3.show))
         return
 
-      console.log("processDatapoints", series, datapoints)
-      
       var newpoints = []
       var percents = []
       series.data.forEach(function(point, i) {
