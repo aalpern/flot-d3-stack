@@ -2,7 +2,9 @@
 <html>
 
   <head>
-    <script language="javascript" type="text/javascript" src="../node_modules/d3/d3.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../node_modules/d3-random/dist/d3-random.js"></script>
+    <script language="javascript" type="text/javascript" src="../node_modules/d3-format/dist/d3-format.js"></script>
+    <script language="javascript" type="text/javascript" src="../node_modules/d3-shape/dist/d3-shape.js"></script>    
     <script language="javascript" type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="../node_modules/flot/jquery.flot.js"></script>
     <script language="javascript" type="text/javascript" src="../node_modules/flot/jquery.flot.stack.js"></script>
@@ -37,22 +39,28 @@
 
     <div class="row">
       <div class="cell">
-        <h2>Stream Graph</h2>
+        <h2>Wiggle</h2>
 	    <div id="wiggle" class="example"></div>
       </div>
       <div class="cell">
-        <h2>Stream Graph (alternate)</h2>
+        <h2>Silhouette</h2>
 	    <div id="silhouette" class="example"></div>
       </div>
     </div>
     <div class="row">
       <div class="cell">
-        <h2>Percentage (Expanded)</h2>
+        <h2>Expand</h2>
 	    <div id="expand" class="example"></div>
       </div>
       <div class="cell">
+        <h2>Diverging</h2>
+	    <div id="diverging" class="example"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell">
         <h2>Regular Stack</h2>
-	    <div id="zero" class="example"></div>
+	    <div id="none" class="example"></div>
       </div>
     </div>
 
@@ -69,7 +77,7 @@
      var data = labels.map(function(label) {
        return {
          label: label,
-         data: random(d3.random.irwinHall(2))
+         data: random(d3.randomUniform(1, 5))
        }
      })
 
@@ -109,7 +117,7 @@
        }
      }
 
-     var offsets = [ "wiggle", "silhouette", "expand", "zero" ]
+     var offsets = [ "wiggle", "silhouette", "diverging", "expand", "none" ]
      offsets.forEach(function(offset) {
        options.series.stackD3.offset = offset
        options.yaxis.min = (offset === 'expand') ? 0 : undefined
