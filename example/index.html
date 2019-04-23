@@ -7,30 +7,29 @@
     <script language="javascript" type="text/javascript" src="../node_modules/d3-shape/dist/d3-shape.js"></script>    
     <script language="javascript" type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="../node_modules/flot/jquery.flot.js"></script>
-    <script language="javascript" type="text/javascript" src="../node_modules/flot/jquery.flot.stack.js"></script>
     <script language="javascript" type="text/javascript" src="../jquery.flot.d3.stack.js"></script>
     <style>
-     body {
-       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-       font-size: 14px;
-       width: 1200px;
-       margin-left: auto;
-       margin-right: auto;
-     }
-     h1 {
-       border-bottom: 1px solid lightgray;
-     }
-     .row {
-       width: 100%;
-       float: left;
-     }
-     .cell {
-       width: 50%;
-       float: left;
-     }
-     .example {
-       height: 200px;
-     }
+      body {
+          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          width: 1200px;
+          margin-left: auto;
+          margin-right: auto;
+      }
+      h1 {
+          border-bottom: 1px solid lightgray;
+      }
+      .row {
+          width: 100%;
+          float: left;
+      }
+      .cell {
+          width: 50%;
+          float: left;
+      }
+      .example {
+          height: 200px;
+      }
     </style>
   </head>
 
@@ -40,90 +39,98 @@
     <div class="row">
       <div class="cell">
         <h2>Wiggle</h2>
-	    <div id="wiggle" class="example"></div>
+	<div id="wiggle" class="example"></div>
       </div>
       <div class="cell">
         <h2>Silhouette</h2>
-	    <div id="silhouette" class="example"></div>
+	<div id="silhouette" class="example"></div>
       </div>
     </div>
     <div class="row">
       <div class="cell">
         <h2>Expand</h2>
-	    <div id="expand" class="example"></div>
+	<div id="expand" class="example"></div>
       </div>
       <div class="cell">
         <h2>Diverging</h2>
-	    <div id="diverging" class="example"></div>
+	<div id="diverging" class="example"></div>
       </div>
     </div>
     <div class="row">
       <div class="cell">
         <h2>Regular Stack</h2>
-	    <div id="none" class="example"></div>
+	<div id="none" class="example"></div>
+      </div>
+      <div class="cell">
+        <h2>Unstacked</h2>
+	<div id="unstacked" class="example"></div>
       </div>
     </div>
 
     <script>
-     function random(gen) {
-       var points = []
-       for (var i = 0; i < 100; i++) {
-         points.push([i, gen()])
-       }
-       return points
-     }
+      function random(gen) {
+        var points = []
+        for (var i = 0; i < 100; i++) {
+          points.push([i, gen()])
+        }
+        return points
+      }
 
-     var labels = [ "Frobs", "Globs", "Thingamajigs", "Doohickeys", "Framistats" ]
-     var data = labels.map(function(label) {
-       return {
-         label: label,
-         data: random(d3.randomUniform(1, 5))
-       }
-     })
+      var labels = [ "Frobs", "Globs", "Thingamajigs", "Doohickeys", "Framistats" ]
+      var data = labels.map(function(label) {
+        return {
+          label: label,
+          data: random(d3.randomUniform(1, 5))
+        }
+      })
 
-	 var options = {
-       colors: ["#e7cbe6", "#d8aad6", "#a888c2", "#9dc2d3", "#649eb9", "#387aa3"],
-       grid: {
-         show: true,
-         borderWidth: 1,
-         color: 'lightgray',
-         borderColor: 'lightgray',
-         tickColor: 'lightgray',
-       },
-       xaxis: {
-         font: {
-           color: 'gray',
-           size: 11
-         }
-       },
-       yaxis: {
-         font: {
-           color: 'gray',
-           size: 11
-         },
-         tickFormatter: d3.format(',.3s')
-       },
-       shadowSize: 0,
-       legend: { show: false },
-       series: {
-		 stackD3: {
-           show: true
-         },
-         lines: {
-		   show: true,
-           fill: 1,
-           lineWidth: 1
-		 }
-       }
-     }
+      var options = {
+        colors: ["#e7cbe6", "#d8aad6", "#a888c2", "#9dc2d3", "#649eb9", "#387aa3"],
+        grid: {
+          show: true,
+          borderWidth: 1,
+          color: 'lightgray',
+          borderColor: 'lightgray',
+          tickColor: 'lightgray',
+        },
+        xaxis: {
+          font: {
+            color: 'gray',
+            size: 11
+          }
+        },
+        yaxis: {
+          font: {
+            color: 'gray',
+            size: 11
+          },
+          tickFormatter: d3.format(',.3s')
+        },
+        shadowSize: 0,
+        legend: { show: false },
+        series: {
+	  stackD3: {
+            show: true
+          },
+          lines: {
+	    show: true,
+            fill: 1,
+            lineWidth: 1
+	  }
+        }
+      }
 
-     var offsets = [ "wiggle", "silhouette", "diverging", "expand", "none" ]
-     offsets.forEach(function(offset) {
-       options.series.stackD3.offset = offset
-       options.yaxis.min = (offset === 'expand') ? 0 : undefined
-       options.yaxis.max = (offset === 'expand') ? 1 : undefined
-	   $.plot($('#' + offset), data, options)
-     })
+      var offsets = [ "wiggle", "silhouette", "diverging", "expand", "none" ]
+      offsets.forEach(function(offset) {
+        options.series.stackD3.offset = offset
+        options.yaxis.min = (offset === 'expand') ? 0 : undefined
+        options.yaxis.max = (offset === 'expand') ? 1 : undefined
+        $.plot($('#' + offset), data, options)
+      })
+
+      options.series.stackD3.show = false
+      options.series.lines.fill = 0
+      $.plot($('#unstacked'), data, options)
 
     </script>
 
