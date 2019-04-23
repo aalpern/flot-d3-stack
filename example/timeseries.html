@@ -69,9 +69,11 @@
 
     <script>
       function random(gen) {
+        var ts = new Date().getTime()
         var points = []
-        for (var i = 0; i < 100; i++) {
-          points.push([i, gen()])
+        for (var i = 0; i < 120; i++) {
+          points.push([ts, gen()])
+          ts -= 1000 * 30
         }
         return points
       }
@@ -94,6 +96,9 @@
           tickColor: 'lightgray',
         },
         xaxis: {
+          mode: "time",
+          autoScale: "none",
+          timeBase: "milliseconds",          
           font: {
             color: 'gray',
             size: 11
@@ -125,11 +130,10 @@
         options.series.stackD3.offset = offset
         options.yaxis.min = (offset === 'expand') ? 0 : undefined
         options.yaxis.max = (offset === 'expand') ? 1 : undefined
-        $.plot($('#' + offset), data, options)
+	$.plot($('#' + offset), data, options)
       })
 
       options.series.stackD3.show = false
-      options.series.lines.fill = 0
       $.plot($('#unstacked'), data, options)
 
     </script>
