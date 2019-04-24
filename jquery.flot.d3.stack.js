@@ -40,7 +40,20 @@
   
   function init(plot) {
     var stacked = null
-    
+
+    function processOptions(plot, options) {
+      if (!options.series.stackD3 || (options.series.stackD3 && !options.series.stackD3.show))
+        return
+      options.series.stack = options.series.stack || {}
+      options.series.stack.show = true
+
+      if (options.series.stackD3.offset === 'expand') {
+        var axis = options.yaxes[0]
+        axis.max = 1.0
+        axis.autoScale = 'none'
+      }
+    }
+  
     function processRawData(plot) {
       var options = plot.getOptions()      
       if (!options.series.stackD3 || (options.series.stackD3 && !options.series.stackD3.show))
@@ -96,7 +109,8 @@
         series.percents = percents
       datapoints.points = newpoints
     }
-      
+
+    plot.hooks.processOptions.push(processOptions)
     plot.hooks.processRawData.push(processRawData)
     plot.hooks.processDatapoints.push(processDatapoints)
   }
