@@ -70,7 +70,7 @@
     <script>
       function random(gen) {
         var points = []
-        for (var i = 0; i < 100; i++) {
+        for (var i = 0; i < 60; i++) {
           points.push([i, gen()])
         }
         return points
@@ -119,6 +119,8 @@
 	  }
         }
       }
+
+      console.log(data)
 
       var offsets = [ "wiggle", "silhouette", "diverging", "expand", "none" ]
       offsets.forEach(function(offset) {

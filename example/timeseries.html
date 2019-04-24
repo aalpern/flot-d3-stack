@@ -68,12 +68,18 @@
     </div>
 
     <script>
+      const MINUTE = 1000 * 60
+      var start = new Date().getTime() - (60 * MINUTE)
+      var end = start
+
+      
       function random(gen) {
-        var ts = new Date().getTime()
+        var ts = start        
         var points = []
-        for (var i = 0; i < 120; i++) {
+        for (var i = 0; i < 60; i++) {
           points.push([ts, gen()])
-          ts -= 1000 * 30
+          end = ts
+          ts += MINUTE
         }
         return points
       }
@@ -98,7 +104,9 @@
         xaxis: {
           mode: "time",
           autoScale: "none",
-          timeBase: "milliseconds",          
+          timeBase: "milliseconds",
+          min: start,
+          max: end,
           font: {
             color: 'gray',
             size: 11
@@ -125,6 +133,8 @@
         }
       }
 
+      console.log(data)
+
       var offsets = [ "wiggle", "silhouette", "diverging", "expand", "none" ]
       offsets.forEach(function(offset) {
         options.series.stackD3.offset = offset
@@ -134,6 +144,7 @@
       })
 
       options.series.stackD3.show = false
+      options.series.lines.fill = false
       $.plot($('#unstacked'), data, options)
 
     </script>
