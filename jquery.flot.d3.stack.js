@@ -100,10 +100,11 @@
       var newpoints = []
       var percents = []
       series.data.forEach(function(point, i) {
+        var np = series.d3stacked[i]
         newpoints.push(point[0])
-        newpoints.push(series.d3stacked[i][0])
-        newpoints.push(series.d3stacked[i][1])
-        percents.push(point.y)
+        newpoints.push(np[0])
+        newpoints.push(np[1])
+        percents.push(np[1] - np[0])
       })
       if (options.series.stackD3.offset === 'expand')
         series.percents = percents
